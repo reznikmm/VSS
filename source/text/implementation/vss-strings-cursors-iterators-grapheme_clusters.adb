@@ -450,6 +450,16 @@ package body VSS.Strings.Cursors.Iterators.Grapheme_Clusters is
    -- Forward --
    -------------
 
+   function Get_Data (X : VSS.Strings.Magic_String_Access)
+     return VSS.Implementation.Strings.String_Data
+        with No_Inline;
+
+   function Get_Data (X : VSS.Strings.Magic_String_Access)
+     return VSS.Implementation.Strings.String_Data is
+   begin
+      return X.Data;
+   end Get_Data;
+
    overriding function Forward
      (Self : in out Grapheme_Cluster_Iterator) return Boolean
    is
@@ -471,7 +481,7 @@ package body VSS.Strings.Cursors.Iterators.Grapheme_Clusters is
          return False;
       end if;
 
-      Data    := VSS.Strings.Magic_String_Access (Self.Owner).Data;
+      Data    := Get_Data (VSS.Strings.Magic_String_Access (Self.Owner));
       Handler := VSS.Implementation.Strings.Constant_Handler (Data);
 
       Self.First_Position := Self.Last_Position;
